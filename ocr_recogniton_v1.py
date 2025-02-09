@@ -4,18 +4,27 @@ from surya.detection import DetectionPredictor
 
 import subprocess
 
-# Define the command and arguments
-command = [
-    "surya_ocr", 
-    "/Users/kanishka/Library/Mobile Documents/com~apple~CloudDocs/paperTrust/OCR/ocr_data/pdf_to_ocr.png", 
-    "--images"
-]
+def extract_info(command):
+    # Define the command and arguments
+    # Run the command
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        print("Command output:", result.stdout)
+    except subprocess.CalledProcessError as e:
+        print("Error:", e.stderr)
 
-# Run the command
-try:
-    result = subprocess.run(command, capture_output=True, text=True, check=True)
-    print("Command output:", result.stdout)
-except subprocess.CalledProcessError as e:
-    print("Error:", e.stderr)
+    print('done')
+if __name__ == "__main__":
+    print('You are in OCR main loop')
+    command = [
+        "surya_ocr", 
+        "F:\papertrust\papertrust\ocr_data\pdf_to_ocr.png", 
+        "--images"
+    ]
 
-print('done')
+    command2 = [
+        "surya_ocr", 
+        "F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_rev.png", 
+        "--images"
+    ]
+    extract_info(command2)

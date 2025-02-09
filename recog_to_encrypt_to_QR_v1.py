@@ -55,14 +55,15 @@ def generate_qr_code(data, qr_file):
 
 # Main function
 if __name__ == "__main__":
-    input_file = "/Users/kanishka/Library/Mobile Documents/com~apple~CloudDocs/" \
-        "paperTrust/OCR/results/surya/pdf_to_ocr/pdf_to_ocr_0_text.png"
+    #input_file = "F:/papertrust/papertrust/results/qr_code/surya/pdf_to_ocr/pdf_to_ocr_0_text.png" 
+    input_file = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr\pdf_to_ocr_0_text.png'
+    
+    print(f'your file path name is:{input_file}')
 
-    encrypted_file = "/Users/kanishka/Library/Mobile Documents/com~apple~CloudDocs/" \
-        "paperTrust/OCR/results/surya/pdf_to_ocr/encrypted_data.enc"
+    encrypted_file = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr\encrypted_data.enc'
 
-    qr_code_file = "/Users/kanishka/Library/Mobile Documents/com~apple~CloudDocs/" \
-        "paperTrust/OCR/results/surya/pdf_to_ocr/encrypted_data_qr.png"
+
+    qr_code_file = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr\encrypted_data_qr.png'
 
     password = "kt"  # Choose a strong password
 
