@@ -27,4 +27,4 @@ if __name__ == "__main__":
         "F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_rev.png", 
         "--images"
     ]
-    extract_info(command2)
+    extract_info(command)

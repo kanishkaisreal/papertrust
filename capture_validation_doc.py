@@ -1,5 +1,5 @@
 from PIL import Image
-def color_match(pixel, marker_color, tolerance=40):
+def color_match(pixel, marker_color, tolerance=100):
     return all(abs(pixel[i] - marker_color[i]) <= tolerance for i in range(3))
 
 
@@ -23,8 +23,7 @@ def recover_image_from_scan(input_image_path, output_image1_path, output_image2_
     marker_found = False
 
     for y in range(height):
-        for x in range(margin-5, margin + 15):  # Only check the margin area
-            #print(pixels.getpixel)
+        for x in range(margin-10, margin + 25):  # Only check the margin area
             if color_match(pixels[x, y], marker_color):
                 marker_found = True
                 marker_y = y
