@@ -1,0 +1,72 @@
+import os
+import zlib
+import base64
+import cv2
+from extract_qr_v1 import extract_qr_code 
+from capture_validation_doc import recover_image_from_scan
+from autheticity_check_ssim import compare_images
+from QR_todecrypt_v2 import decrypt_file
+from ocr_recogniton_v1 import extract_info
+import shutil
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from autheticity_check_alg01 import authenticity_score
+
+# Main function
+if __name__ == "__main__":
+    #qr_code_file = "/Users/kanishka/Library/Mobile Documents/com~apple~CloudDocs/" \
+    #    "paperTrust/OCR/results/surya/pdf_to_ocr/encrypted_data_qr.png"
+    
+    scanned_image_path = r'F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_out_scan.png'
+    recoverd_image_path = r'F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_rev.png'
+    sury_recovered_result_path = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr_0_text_rev\results.json'
+    recovered_qrcode_path = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr\pdf_to_ocr_0_text_qr_rev.png'
+    decripted_orginial_file_path = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr\pdf_to_ocr_0_text_decrypt.png'
+    run_path = r'F:\papertrust\papertrust\ocr_data\accuracy\run_'
+    
+    recover_image_from_scan(input_image_path=scanned_image_path, output_image1_path=recoverd_image_path, output_image2_path=recovered_qrcode_path)
+
+    #extract information from the recovered image
+    # Run surya ocr on the recovered image
+    for count in range(1,11):
+        scanned_image_path = f'F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_out_scan_{count}.png'
+        print(f'Scanning image: {scanned_image_path}')
+        # recover_image_from_scan(input_image_path=scanned_image_path, output_image1_path=recoverd_image_path, output_image2_path=recovered_qrcode_path)
+
+        # command = [
+        #     "surya_ocr", 
+        #     recoverd_image_path, 
+        #     "--images"
+        # ]
+        # extract_info(command)
+    
+
+        # # Copy file to a new file with a different name
+        # shutil.copy(sury_recovered_result_path, f'{run_path}{count}.json')
+        # os.remove(sury_recovered_result_path)
+
+    # Initialize a matrix for similarity scores
+    num_scores = np.zeros((10, 10))
+    word_scores = np.zeros((10,10))
+    for i in range(1,11):
+        for j in range(1,11):
+
+            num_similarity_score, wrd_sim_score = authenticity_score(f'{run_path}{i}.json', f'{run_path}{j}.json')
+            print(f"Num Similarity: {num_similarity_score:}, Word Similarity: {wrd_sim_score}")
+            num_scores[i-1, j-1] = num_similarity_score
+            word_scores[i-1, j-1] = wrd_sim_score
+plt.figure(figsize=(10, 8))
+sns.heatmap(num_scores, annot=True, cmap='YlGnBu', fmt='.2f', xticklabels=range(1, 10), yticklabels=range(1, 10))
+plt.title('Number Similarity Score (%)')
+plt.xlabel('Run j')
+plt.ylabel('Run i')
+plt.show()
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(word_scores, annot=True, cmap='YlGnBu', fmt='.2f', xticklabels=range(1, 10), yticklabels=range(1, 10))
+plt.title('Word Similarity Score (%)')
+plt.xlabel('Run j')
+plt.ylabel('Run i')
+plt.show()
+

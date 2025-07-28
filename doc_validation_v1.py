@@ -13,7 +13,7 @@ if __name__ == "__main__":
     #qr_code_file = "/Users/kanishka/Library/Mobile Documents/com~apple~CloudDocs/" \
     #    "paperTrust/OCR/results/surya/pdf_to_ocr/encrypted_data_qr.png"
     
-    scanned_image_path = r'F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_out_scan_fraud.png'
+    scanned_image_path = r'F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_out_scan_5.png'
     recoverd_image_path = r'F:\papertrust\papertrust\ocr_data\pdf_to_ocr_0_text_rev.png'
     sury_recovered_image_path = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr_0_text_rev\pdf_to_ocr_0_text_rev_0_text.png'
     recovered_qrcode_path = r'F:\papertrust\papertrust\results\surya\pdf_to_ocr\pdf_to_ocr_0_text_qr_rev.png'
@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     #extract information from the recovered image
     # Run surya ocr on the recovered image
-
+    print('Trying to run Surya OCR')
     command = [
         "surya_ocr", 
         recoverd_image_path, 
