@@ -1,4 +1,3 @@
-
 import json, re
 from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple, Optional
@@ -174,7 +173,7 @@ def _severity(a_tok: Optional[Token], b_tok: Optional[Token], meta_a: Dict[str, 
     ic = _category_impact(kind_a, kind_b); mag = _magnitude(a_tok, b_tok)
     conf = min((a_tok.conf if a_tok else 1.0), (b_tok.conf if b_tok else 1.0))
     U = 1.0 - 0.5*(1.0 - conf)
-    pos_weight = max(_position_weight(meta_a), _position_weight(meta_b))
+    pos_weight = max(_position_weight(meta_a or {}), _position_weight(meta_b or {}))
     rb = _rule_bump(a_tok, b_tok)
     s = ic*0.5 + mag*0.3 + pos_weight*0.1 + rb*0.1
     return max(0.0, min(1.0, s*U))
@@ -237,11 +236,11 @@ def context_diff_from_files(lhs_path: str, rhs_path: str, pair_id: str = "run") 
     with open(rhs_path, "r", encoding="utf-8") as f: B = json.load(f)
     return context_diff(A, B, pair_id=pair_id)
 
-# ----------------------------- Simple local runner (edit paths) -----------------------------
+
 if __name__ == "__main__":
-    FILE_A = "run_5.json"     # <- edit to your file path
-    FILE_B = "run_10.json"    # <- edit to your file path
-    OUTPUT = "report.json"   # <- edit to desired output path
+    FILE_A = "run_1.json"     # <- edit to your file path
+    FILE_B = "run_2.json"    # <- edit to your file path
+    OUTPUT = "report_12.json"   # <- edit to desired output path
 
     report = context_diff_from_files(FILE_A, FILE_B, pair_id="run_vs_code")
     print(json.dumps(report, ensure_ascii=False, indent=2))
