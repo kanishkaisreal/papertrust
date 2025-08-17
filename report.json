@@ -1,0 +1,35 @@
+{
+  "document_pair_id": "run_vs_code",
+  "summary": {
+    "critical": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "totals": {
+    "diffs": 1
+  },
+  "diffs": [
+    {
+      "id": "d_00000",
+      "op": "sub",
+      "level": "token",
+      "page": null,
+      "block_label": "",
+      "line_index": 4,
+      "bbox": [
+        42.0,
+        65.0,
+        322.0,
+        73.0
+      ],
+      "lhs": "Souvily",
+      "rhs": "Souvilk",
+      "lhs_kind": "word",
+      "rhs_kind": "word",
+      "severity": 0.059,
+      "severity_bucket": "low",
+      "why_it_matters": "Lexical change; review in surrounding context.",
+      "suggested_action": "Low impact; accept or ignore"
+    }
+  ]
+}
